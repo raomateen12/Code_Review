@@ -1,0 +1,437 @@
+/* Beautiful & Readable Code Review UI */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Main Container with Attractive Gradient */
+.app-container {
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Beautiful Animated Background Pattern */
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  animation: backgroundMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes backgroundMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* Professional Header */
+.app-header {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+/* Main Content Layout - FIXED HEIGHT */
+.main-content {
+  flex: 1;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  height: 0; /* Force flex child to respect parent height */
+  min-height: 0; /* Allow shrinking */
+}
+
+/* Beautiful Glass Panel Effect - FIXED HEIGHT */
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%; /* Take full height of parent */
+  min-height: 0; /* Allow shrinking */
+}
+
+.panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.left-panel, .right-panel {
+  flex: 1;
+}
+
+/* Panel Headers with Gradient */
+.panel-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Clear Button with Nice Hover Effect */
+.clear-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Code Editor Wrapper - Ensure proper height and scrolling */
+.code-editor > div {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+.code-editor textarea {
+  min-height: 100% !important;
+  resize: none !important;
+}
+
+/* CODE EDITOR - DARK THEME WITH FIXED HEIGHT AND SCROLLBAR */
+.code-editor {
+  flex: 1;
+  background: #1e1e1e;  /* Perfect dark background */
+  margin: 1rem;
+  border-radius: 12px;
+  overflow: auto; /* Enable scrolling */
+  border: 2px solid #333333;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  min-height: 0; /* Allow shrinking */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Review Button - Attractive & Professional */
+.review-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.review-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+}
+
+.review-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* AI REVIEW CONTENT - PERFECT READABILITY WITH FIXED HEIGHT */
+.review-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: #fafbfc;  /* Light background for perfect text contrast */
+  min-height: 0; /* Allow shrinking */
+}
+
+.review-text {
+  color: #2c3e50;  /* Dark text for perfect readability */
+  line-height: 1.8;    /* Comfortable line spacing */
+  font-size: 16px;     /* Perfect reading size */
+  font-weight: 400;
+}
+
+.review-text pre {
+  white-space: pre-wrap;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+  font-size: 15px;        /* Perfect code reading size */
+  background: #f8f9fa;    /* Light background for code blocks */
+  color: #2c3e50;         /* Dark text for perfect visibility */
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e1e8ed;
+  margin: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  line-height: 1.6;       /* Perfect code line spacing */
+}
+
+/* Empty State - Beautiful & Engaging */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #7f8c8d;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.empty-state h3 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.empty-state p {
+  font-size: 1.1rem;      /* Comfortable reading size */
+  line-height: 1.6;
+  color: #7f8c8d;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Beautiful Custom Scrollbar - CODE EDITOR */
+.code-editor::-webkit-scrollbar {
+  width: 10px;
+}
+
+.code-editor::-webkit-scrollbar-track {
+  background: #2d2d30;
+  border-radius: 5px;
+}
+
+.code-editor::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 5px;
+  border: 2px solid #2d2d30;
+}
+
+.code-editor::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+/* Beautiful Custom Scrollbar - REVIEW CONTENT */
+.review-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.review-content::-webkit-scrollbar-track {
+  background: #f1f3f4;
+  border-radius: 5px;
+}
+
+.review-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 5px;
+  border: 2px solid #f1f3f4;
+}
+
+.review-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+/* Responsive Design - FIXED HEIGHT ON ALL DEVICES */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    height: 0; /* Maintain fixed height behavior */
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+  }
+  
+  .panel {
+    height: 50vh; /* Each panel takes half the viewport on mobile */
+    min-height: 300px; /* Minimum usable height */
+  }
+  
+  .review-text {
+    font-size: 15px;  /* Slightly smaller on mobile but still readable */
+  }
+  
+  .review-text pre {
+    font-size: 14px;
+  }
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .main-content {
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+  
+  .panel {
+    min-height: 0; /* Use flex behavior on tablet */
+  }
+}
+
+/* PERFECT CODE SYNTAX HIGHLIGHTING - HIGH CONTRAST */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a9955;  /* Green comments - easy to read */
+}
+
+.token.punctuation {
+  color: #d4d4d4;  /* Light gray punctuation */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #b5cea8;  /* Light green for numbers/constants */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #ce9178;  /* Orange for strings */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d4d4d4;  /* Light for operators */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #569cd6;  /* Blue for keywords */
+}
+
+.token.function,
+.token.class-name {
+  color: #dcdcaa;  /* Yellow for functions */
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #d16969;  /* Red for variables */
+}
+
+/* Additional Focus States for Accessibility */
+.clear-btn:focus,
+.review-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Subtle Animation for Professional Feel */
+.panel {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
